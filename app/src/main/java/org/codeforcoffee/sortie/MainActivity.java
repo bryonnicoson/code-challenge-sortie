@@ -7,6 +7,7 @@ import android.widget.ListView;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -35,6 +36,8 @@ public class MainActivity extends AppCompatActivity {
         mFamousPetsList.add("squirtle");
 
 
+
+
         mListView = (ListView) findViewById(R.id.list_view);
 
         // sort the arrayList descendingly
@@ -43,7 +46,8 @@ public class MainActivity extends AppCompatActivity {
 
         // render the list using the android.R.simple_list_row_1 layout
 
-
+        ArrayAdapter<String> listAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, displayData);
+        mListView.setAdapter(listAdapter);
 
     }
 
@@ -51,7 +55,23 @@ public class MainActivity extends AppCompatActivity {
 
         // sort the arrayList descending alphabetically
         // do not use ArrayList.sort()
+        //Collections.sort(list, sortDescending())
+        String a, b, c, d;
 
+        for (int i=0; i < list.size(); i++) {
+            for(int j=0; j<list.size()-i-1; j++) {
+
+                a = list.get(j).toLowerCase();
+                b = list.get(j+1).toLowerCase();
+                c = list.get(j);
+                d = list.get(j+1);
+
+                if (a.compareTo(b) < 0) {
+                    list.set(j+1, c);
+                    list.set(j, d);
+                }
+            }
+        }
         return list;
 
     }
